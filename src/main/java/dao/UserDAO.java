@@ -22,8 +22,7 @@ public class UserDAO {
         ){
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            // Attention au format Date utilisé par SQL et Java
-            statement.setDate(3, Date.valueOf(user.getBirthDate()));
+            statement.setString(3, user.getBirthDate());
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getStreet());
             statement.setString(6, user.getStreetNumber());
@@ -56,8 +55,7 @@ public class UserDAO {
                         rs.getInt("user_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        // Il faut retransformer le format Date de SQL vers Java
-                        rs.getDate("birth_date").toLocalDate(),
+                        rs.getDate("birth_date").toString(),
                         rs.getString("email"),
                         rs.getString("ad_street"),
                         rs.getString("ad_street_num"),

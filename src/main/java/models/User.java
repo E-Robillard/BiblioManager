@@ -1,13 +1,12 @@
 package models;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
     private int id;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
+    private String birthDate;
     private String email;
 
     private String street;
@@ -18,7 +17,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, LocalDate birthDate, String email, String street, String streetNumber, String addressSupplement, String city, int postalCode) {
+    public User(String firstName, String lastName, String birthDate, String email, String street, String streetNumber, String addressSupplement, String city, int postalCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -30,7 +29,7 @@ public class User {
         this.postalCode = postalCode;
     }
 
-    public User(int id, String firstName, String lastName, LocalDate birthDate, String email, String street, String streetNumber, String addressSupplement, String city, int postalCode) {
+    public User(int id, String firstName, String lastName, String birthDate, String email, String street, String streetNumber, String addressSupplement, String city, int postalCode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,11 +66,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
