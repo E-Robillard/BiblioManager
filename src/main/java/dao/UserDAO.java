@@ -55,7 +55,7 @@ public class UserDAO {
                         rs.getInt("user_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        rs.getDate("birth_date").toString(),
+                        rs.getString("birth_date"),
                         rs.getString("email"),
                         rs.getString("ad_street"),
                         rs.getString("ad_street_num"),
