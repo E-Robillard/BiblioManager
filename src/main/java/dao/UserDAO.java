@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDAO {
 
-    public void insert(User user) {
+    public User insert(User user) {
         String sql = """
             INSERT INTO users
                 (first_name, last_name, birth_date, email, ad_street, ad_street_num, ad_supplement, ad_city, ad_postal_code)
@@ -18,11 +18,11 @@ public class UserDAO {
         """;
         try (
             Connection connexion = Database.getConnection();
-            PreparedStatement statement = connexion.prepareStatement(sql)
+            PreparedStatement statement = connexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ){
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            statement.setString(3, user.getBirthDate());
+            statement.setDate(3, Date.valueOf(user.getBirthDate()));
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getStreet());
             statement.setString(6, user.getStreetNumber());
@@ -31,6 +31,14 @@ public class UserDAO {
             statement.setInt(9, user.getPostalCode());
 
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()){
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getInt(1));
+                }
+            }
+
+            return  user;
 
         } catch (SQLException e){
             throw new RuntimeException(e);
@@ -55,7 +63,7 @@ public class UserDAO {
                         rs.getInt("user_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        rs.getString("birth_date"),
+                        rs.getDate("birth_date").toLocalDate(),
                         rs.getString("email"),
                         rs.getString("ad_street"),
                         rs.getString("ad_street_num"),
